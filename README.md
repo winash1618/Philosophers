@@ -1,2 +1,14 @@
 # Philosophers
-In this project, you will learn the basics of threading a process. You will see how to create threads and you will discover mutexes.
+
+## Resources
+  - https://hpc-tutorials.llnl.gov/posix/
+  - https://www.cse.iitk.ac.in/users/swarnendu/courses/spring2019-cs636/
+  - [CS636: Shared Memory Programming and POSIX Threads Swarnendu Biswas](https://github.com/winash1618/Philosophers/blob/main/Shared%20Memory%20Programming.pdf)
+  - https://cse.iitkgp.ac.in/~abhij/course/lab/
+  - http://www.cs.iit.edu/~iraicu/teaching/EECS211/index.html
+  - https://www.iitp.ac.in/~arijit/dokuwiki/doku.php?id=teaching
+
+## Philosophers learning process
+  - [Getting started](docs/intro_to_functions.MD)
+  - [POSIX Threads Programming](docs/threads.MD)
+  - 
