@@ -20,6 +20,7 @@
   - https://stackoverflow.com/questions/65007137/thread-never-gets-the-lock-pthread-mutex-lock
   - https://www.geeksforgeeks.org/mutex-lock-for-linux-thread-synchronization/
   - https://www.ee.ryerson.ca/~courses/coe518/Labs/lab4/lisi.edu-dining-Philosopherecture8.pdf
+  - https://docs.oracle.com/cd/E19205-01/820-0619/gepji/index.html
  
 ## Philosophers learning process
   - [Getting started](docs/intro_to_functions.MD)
