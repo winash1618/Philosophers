@@ -5,6 +5,7 @@
   - How to access specific obect using pthread_mutex_lock? the thing i understood is that when you call mutex lock the mutex will lock  what ever between mutex lock and unlock with a specific mutex id or something else i don't konw, this is my understanding i don't know if it is right or wrong. So if you want another thread to access the area that is currently locked you need to do mutex unlock with the specific mutex variable you locked with. Unless this happens no other thread access whatever inside the locked area.
   - So in our case we have forks that needs to be locked, ie while eating, a philosopher will have two forks so inorder to lock it we must call mutex lock with a specific id. and do the work inside it after that you can unlock it. this is my understanding as of now.
   - When i created 2.c and ran the program expecting that it will give me 80000, but it was only giving me 50000 to 75000 range. This means that only the code written between lock and unlock is being protected not the global shared data and all. here the global variable shared is accessed by both the functions at the same time because they have two different mutex variable.
+  - The local variables and function parameters are specific for each threads so you don't have to worry about them unless you are passing it another function with its address. read the [pdf](http://lemuria.cis.vtc.edu/~pchapin/TutorialPthread/pthread-Tutorial.pdf) for more details.
   - 
 ## Resources
   - https://hpc-tutorials.llnl.gov/posix/
