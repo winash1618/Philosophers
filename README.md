@@ -1,6 +1,8 @@
 # Philosophers
 ## tips
 (*variable_name).data is same as varialble_name->data
+gcc 4.c libft/ft_printf/libftprintf.a -pthread
+valgrind --tool=helgrind ./a.out 
 ## Doubts and Clarification
   - How to access specific obect using pthread_mutex_lock? the thing i understood is that when you call mutex lock the mutex will lock  what ever between mutex lock and unlock with a specific mutex id or something else i don't konw, this is my understanding i don't know if it is right or wrong. So if you want another thread to access the area that is currently locked you need to do mutex unlock with the specific mutex variable you locked with. Unless this happens no other thread access whatever inside the locked area.
   - So in our case we have forks that needs to be locked, ie while eating, a philosopher will have two forks so inorder to lock it we must call mutex lock with a specific id. and do the work inside it after that you can unlock it. this is my understanding as of now.
