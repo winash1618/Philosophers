@@ -6,7 +6,7 @@
 /*   By: mkaruvan <mkaruvan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 14:26:17 by mkaruvan          #+#    #+#             */
-/*   Updated: 2022/04/30 06:09:19 by mkaruvan         ###   ########.fr       */
+/*   Updated: 2022/04/30 10:30:30 by mkaruvan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,35 @@ size_t time_event(t_data *data, size_t ptime, size_t t)
 	time = get_time();
 	while (1)
 	{
-		if (check_death(data, get_time(), t),get_time() - time >= ptime)
+		if (check_death(data, get_time(), t), (get_time() - time) >= ptime)
 			break;
 		usleep(100);
 	}
 	return (get_time() - time);
+}
+
+int	ft_atop(const char *str)
+{
+	int				count;
+	unsigned int	sum;
+
+	count = 1;
+	sum = 0;
+	while (*str == ' ' || *str == '\n' || *str == '\t' || *str == '\f'
+		|| *str == '\r' || *str == '\v')
+		str++;
+	if (*str == '-' || *str == '+')
+	{
+		if (*str == '-')
+			count = -count;
+		str++;
+	}
+	while (*str >= '0' && *str <= '9')
+	{
+		sum = sum * 10 + (*str - '0');
+		str++;
+		if (sum > 2147483647)
+		exit (1);
+	}
+	return (sum * count);
 }

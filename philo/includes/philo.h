@@ -6,7 +6,7 @@
 /*   By: mkaruvan <mkaruvan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 14:26:24 by mkaruvan          #+#    #+#             */
-/*   Updated: 2022/04/30 06:06:33 by mkaruvan         ###   ########.fr       */
+/*   Updated: 2022/04/30 10:24:27 by mkaruvan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 typedef struct common_data
 {
 	int pno;
+	int nte;
 	size_t ttd;
 	size_t tte;
 	size_t tts;
@@ -35,10 +36,7 @@ typedef struct common_data
 typedef struct philo
 {
 	int id;
-	size_t starvation_time;
-	int eating;
-	int thinking;
-	int sleeping;
+	int nte;
 	pthread_t phi_t;
 	t_data *s;
 }	t_phi;
@@ -48,5 +46,7 @@ void unlock_stick(t_data *data, int left_fork, int right_fork, size_t start);
 size_t get_time(void);
 void check_death(t_data *data, size_t time_after, size_t time_before);
 size_t time_event(t_data *data, size_t ptime, size_t t);
+void *philosopher (void *phi);
+int	ft_atop(const char *str);
 
 #endif
