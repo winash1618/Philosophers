@@ -6,7 +6,7 @@
 /*   By: mkaruvan <mkaruvan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 14:26:24 by mkaruvan          #+#    #+#             */
-/*   Updated: 2022/04/30 10:48:52 by mkaruvan         ###   ########.fr       */
+/*   Updated: 2022/04/30 12:28:14 by mkaruvan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,11 @@
 typedef struct common_data
 {
 	int pno;
-	int nte;
+	int flag;
 	size_t ttd;
 	size_t tte;
 	size_t tts;
 	size_t tt;
-	int e_max;
 	pthread_mutex_t *fork;
 	pthread_mutex_t *task;
 }	t_data;
@@ -48,5 +47,6 @@ void check_death(t_phi *phi, size_t ta, size_t tb, size_t ts);
 size_t time_event(t_phi *phi, size_t ptime, size_t t, size_t ts);
 void *philosopher (void *phi);
 int	ft_atop(const char *str);
+void check_meal(t_phi *phi);
 
 #endif

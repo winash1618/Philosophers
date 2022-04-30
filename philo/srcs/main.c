@@ -6,13 +6,13 @@
 /*   By: mkaruvan <mkaruvan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 07:28:29 by mkaruvan          #+#    #+#             */
-/*   Updated: 2022/04/30 11:05:42 by mkaruvan         ###   ########.fr       */
+/*   Updated: 2022/04/30 12:22:35 by mkaruvan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void init_philo(t_phi *phi, t_data *data,int t)
+void init_philo(t_phi *phi, t_data *data, int t)
 {
 	int i;
 	
@@ -22,7 +22,12 @@ void init_philo(t_phi *phi, t_data *data,int t)
 		phi[i].id = i;
 		phi[i].s = data; 
 		if(t)
+		{
 			phi[i].nte = t;
+			data->flag = 1;
+		}
+		else
+			data->flag = 0;
 	}
 	i = -1;
 	while (++i < data->pno)
@@ -48,25 +53,18 @@ void init_data(int ac, char **av)
 	data->ttd = ft_atop(av[2]);
 	data->tte = ft_atop(av[3]);
 	data->tts = ft_atop(av[4]);
-	printf("%d \n", data->pno);
 	if (ac == 6)
 		t = ft_atop(av[5]);
 	else
 		t = 0;
-	i = 0;	
+	i = -1;	
 	data->task = malloc(sizeof(pthread_mutex_t) * data->pno);
-	while (i < data->pno)
-	{
+	while (++i < data->pno)
 		pthread_mutex_init(&data->task[i], NULL);
-		i++;
-	}
 	data->fork = malloc(sizeof(pthread_mutex_t) * data->pno);
-	i = 0;
-	while (i < data->pno)
-	{
+	i = -1;
+	while (++i < data->pno)
 		pthread_mutex_init(&data->fork[i], NULL);
-		i++;
-	}
 	init_philo(phi, data, t);
 }
 
@@ -76,7 +74,7 @@ void init_check(int ac, char **av)
 
 	i = 1;
 	if (ft_atop(av[1]) > 200 || ft_atop(av[2]) < 60 || ft_atop(av[3]) < 60
-		 || ft_atop(av[4]) < 60 || ft_atop(av[1]) < 1)
+		 || ft_atop(av[4]) < 60 || ft_atop(av[1]) < 2)
 		exit(1);
 	else
 		init_data(ac, av);

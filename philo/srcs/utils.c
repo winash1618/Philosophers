@@ -6,7 +6,7 @@
 /*   By: mkaruvan <mkaruvan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 14:26:17 by mkaruvan          #+#    #+#             */
-/*   Updated: 2022/04/30 11:17:29 by mkaruvan         ###   ########.fr       */
+/*   Updated: 2022/04/30 12:08:51 by mkaruvan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,9 +27,9 @@ void check_death(t_phi *phi, size_t ta, size_t tb, size_t ts)
 	data = phi->s; 
 	if (ta - tb >= data->ttd)
 	{
-		pthread_mutex_lock(&data->task[3]);
+		pthread_mutex_lock(&data->task[0]);
 		ft_printf("%d %d died\n", (int)get_time() - ts, phi->id);
-		pthread_mutex_unlock(&data->task[3]);
+		pthread_mutex_unlock(&data->task[0]);
 		exit(1);
 	}
 }
