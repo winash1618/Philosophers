@@ -6,7 +6,7 @@
 /*   By: mkaruvan <mkaruvan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 14:24:24 by mkaruvan          #+#    #+#             */
-/*   Updated: 2022/04/30 10:23:57 by mkaruvan         ###   ########.fr       */
+/*   Updated: 2022/04/30 10:49:53 by mkaruvan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,14 @@ void *philosopher (void *phi)
 		left_fork = phi1->id;
 		right_fork = (phi1->id + 1) % (data->pno);
 		lock_stick(data, left_fork, right_fork, start);
-		check_death(data, get_time(), t);
-		time = time_event(data, data->tte, t);
+		check_death(phi1, get_time(), t, start);
+		time = time_event(phi1, data->tte, t, start);
 		t = get_time();
 		pthread_mutex_lock(&data->task[3]);
 		data->tt += time;
 		pthread_mutex_unlock(&data->task[3]);
 		unlock_stick(data, left_fork, right_fork, start);
-		time = time_event(data, data->tts, t);
+		time = time_event(phi1, data->tts, t, start);
 		pthread_mutex_lock(&data->task[3]);
 		data->tt += time;
 		ft_printf("%d %d is thinking \n", (int)get_time() - start, phi1->id);

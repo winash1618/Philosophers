@@ -6,7 +6,7 @@
 /*   By: mkaruvan <mkaruvan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 14:26:17 by mkaruvan          #+#    #+#             */
-/*   Updated: 2022/04/30 10:30:30 by mkaruvan         ###   ########.fr       */
+/*   Updated: 2022/04/30 11:17:29 by mkaruvan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,20 +20,30 @@ size_t get_time(void)
 	return((tv.tv_sec*1000 + tv.tv_usec/1000));
 }
 
-void check_death(t_data *data, size_t time_after, size_t time_before)
+void check_death(t_phi *phi, size_t ta, size_t tb, size_t ts)
 {
-	if (time_after - time_before >= data->ttd)
+	t_data *data;
+	
+	data = phi->s; 
+	if (ta - tb >= data->ttd)
+	{
+		pthread_mutex_lock(&data->task[3]);
+		ft_printf("%d %d died\n", (int)get_time() - ts, phi->id);
+		pthread_mutex_unlock(&data->task[3]);
 		exit(1);
+	}
 }
 
-size_t time_event(t_data *data, size_t ptime, size_t t)
+size_t time_event(t_phi *phi, size_t ptime, size_t t, size_t ts)
 {
+	t_data *data;
 	size_t	time;
-
+	
+	data = phi->s; 
 	time = get_time();
 	while (1)
 	{
-		if (check_death(data, get_time(), t), (get_time() - time) >= ptime)
+		if (check_death(phi, get_time(), t, ts), (get_time() - time) >= ptime)
 			break;
 		usleep(100);
 	}

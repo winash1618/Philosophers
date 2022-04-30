@@ -6,7 +6,7 @@
 /*   By: mkaruvan <mkaruvan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 14:26:24 by mkaruvan          #+#    #+#             */
-/*   Updated: 2022/04/30 10:24:27 by mkaruvan         ###   ########.fr       */
+/*   Updated: 2022/04/30 10:48:52 by mkaruvan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ typedef struct philo
 void lock_stick(t_data *data, int left_fork, int right_fork, size_t start);
 void unlock_stick(t_data *data, int left_fork, int right_fork, size_t start);
 size_t get_time(void);
-void check_death(t_data *data, size_t time_after, size_t time_before);
-size_t time_event(t_data *data, size_t ptime, size_t t);
+void check_death(t_phi *phi, size_t ta, size_t tb, size_t ts);
+size_t time_event(t_phi *phi, size_t ptime, size_t t, size_t ts);
 void *philosopher (void *phi);
 int	ft_atop(const char *str);
 
