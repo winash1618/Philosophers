@@ -6,7 +6,7 @@
 /*   By: mkaruvan <mkaruvan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 14:24:24 by mkaruvan          #+#    #+#             */
-/*   Updated: 2022/05/01 12:45:26 by mkaruvan         ###   ########.fr       */
+/*   Updated: 2022/05/01 12:58:22 by mkaruvan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,9 @@ void	ft_error(t_phi *phi, int flag)
 
 	data = phi->s;
 	if (flag == 1)
-	{
 		data->death = 1;
-	}
 	else if (flag == 2)
-	{
 		data->death = 1;
-	}
 }
 
 void	philoop(t_phi *phi1, t_data *data, size_t *d)
@@ -55,7 +51,6 @@ void	philoop(t_phi *phi1, t_data *data, size_t *d)
 		pthread_mutex_lock(&data->task[0]);
 		if (!data->death)
 			printer(data, get_time() - d[4], phi1->id, 3);
-			// ft_printf("%d %d is thinking \n", (int)get_time() - d[4], phi1->id);
 		pthread_mutex_unlock(&data->task[0]);
 	}
 }

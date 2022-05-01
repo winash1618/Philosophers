@@ -6,11 +6,32 @@
 /*   By: mkaruvan <mkaruvan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 13:35:12 by mkaruvan          #+#    #+#             */
-/*   Updated: 2022/05/01 12:47:22 by mkaruvan         ###   ########.fr       */
+/*   Updated: 2022/05/01 13:11:07 by mkaruvan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	threading(t_phi *phi, t_data *data)
+{
+	int	i;
+
+	i = -1;
+	while (++i < data->pno)
+	{
+		pthread_create (&phi[i].phi_t, NULL, philosopher, (void *)&phi[i]);
+		usleep(300);
+	}
+	i = -1;
+	while (++i < data->pno)
+		pthread_join (phi[i].phi_t, NULL);
+	printf("I am here \n");
+	free (data->fork);
+	free (data->task);
+	free (data);
+	free (phi);
+	exit (1);
+}
 
 void	init_philo(t_phi *phi, t_data *data, int t)
 {
@@ -30,21 +51,7 @@ void	init_philo(t_phi *phi, t_data *data, int t)
 		else
 			data->flag = 0;
 	}
-	i = -1;
-	while (++i < data->pno)
-	{
-		pthread_create (&phi[i].phi_t, NULL, philosopher, (void *)&phi[i]);
-		usleep(300);
-	}
-	i = -1;
-	while (++i < data->pno)
-		pthread_join (phi[i].phi_t, NULL);
-	printf("I am here \n");
-	free (data->fork);
-	free (data->task);
-	free (data);
-	free (phi);
-	exit(1);
+	threading(phi, data);
 }
 
 void	init_data(int ac, char **av)
@@ -55,7 +62,6 @@ void	init_data(int ac, char **av)
 	int		i;
 
 	phi = malloc(sizeof(t_phi) * ft_atop(av[1]));
-	
 	data = malloc(sizeof(t_data));
 	data->pno = ft_atop(av[1]);
 	data->ttd = ft_atop(av[2]);
@@ -67,19 +73,14 @@ void	init_data(int ac, char **av)
 	else
 		t = 0;
 	i = -1;
-	
 	data->task = malloc(sizeof(pthread_mutex_t) * data->pno);
-	
 	while (++i < data->pno)
 		pthread_mutex_init(&data->task[i], NULL);
 	data->fork = malloc(sizeof(pthread_mutex_t) * data->pno);
-	
-	
 	i = -1;
 	while (++i < data->pno)
 		pthread_mutex_init(&data->fork[i], NULL);
 	init_philo(phi, data, t);
-	
 }
 
 void	init_check(int ac, char **av)
@@ -91,7 +92,7 @@ void	init_check(int ac, char **av)
 		init_data(ac, av);
 }
 
-void	check_philo(int ac, char **av)
+int	main(int ac, char **av)
 {
 	if (ac > 6 || ac < 5)
 	{
@@ -100,10 +101,5 @@ void	check_philo(int ac, char **av)
 	}
 	else
 		init_check(ac, av);
-}
-
-int	main(int ac, char **av)
-{
-	check_philo(ac, av);
 	return (0);
 }
