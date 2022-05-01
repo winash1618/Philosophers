@@ -6,7 +6,7 @@
 /*   By: mkaruvan <mkaruvan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 14:26:24 by mkaruvan          #+#    #+#             */
-/*   Updated: 2022/05/01 06:34:51 by mkaruvan         ###   ########.fr       */
+/*   Updated: 2022/05/01 12:47:42 by mkaruvan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ typedef struct common_data
 	int				pno;
 	int				flag;
 	int				death;
+	int				flag_death;
 	size_t			ttd;
 	size_t			tte;
 	size_t			tts;
@@ -55,5 +56,6 @@ int		ft_charcheck(char c, va_list ap);
 int		ft_putchar(int c);
 int		ft_putstr(char *str);
 int		ft_putint(int num);
+void	printer(t_data *data, int time, int id, int flag);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mkaruvan <mkaruvan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 14:24:24 by mkaruvan          #+#    #+#             */
-/*   Updated: 2022/05/01 12:00:12 by mkaruvan         ###   ########.fr       */
+/*   Updated: 2022/05/01 12:45:26 by mkaruvan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void	philoop(t_phi *phi1, t_data *data, size_t *d)
 		d[2] = time_event(phi1, data->tts, d[3], d[4]);
 		pthread_mutex_lock(&data->task[0]);
 		if (!data->death)
-			ft_printf("%d %d is thinking \n", (int)get_time() - d[4], phi1->id);
+			printer(data, get_time() - d[4], phi1->id, 3);
+			// ft_printf("%d %d is thinking \n", (int)get_time() - d[4], phi1->id);
 		pthread_mutex_unlock(&data->task[0]);
 	}
 }

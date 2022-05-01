@@ -6,7 +6,7 @@
 /*   By: mkaruvan <mkaruvan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 13:35:12 by mkaruvan          #+#    #+#             */
-/*   Updated: 2022/05/01 09:42:52 by mkaruvan         ###   ########.fr       */
+/*   Updated: 2022/05/01 12:47:22 by mkaruvan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void	init_data(int ac, char **av)
 	data->ttd = ft_atop(av[2]);
 	data->tte = ft_atop(av[3]);
 	data->tts = ft_atop(av[4]);
+	data->flag_death = 0;
 	if (ac == 6)
 		t = ft_atop(av[5]);
 	else
