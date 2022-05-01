@@ -6,7 +6,7 @@
 /*   By: mkaruvan <mkaruvan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 14:26:24 by mkaruvan          #+#    #+#             */
-/*   Updated: 2022/05/01 12:47:42 by mkaruvan         ###   ########.fr       */
+/*   Updated: 2022/05/01 13:39:43 by mkaruvan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,5 +57,6 @@ int		ft_putchar(int c);
 int		ft_putstr(char *str);
 int		ft_putint(int num);
 void	printer(t_data *data, int time, int id, int flag);
+int		ft_isdigit(int c);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mkaruvan <mkaruvan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 13:35:12 by mkaruvan          #+#    #+#             */
-/*   Updated: 2022/05/01 13:11:07 by mkaruvan         ###   ########.fr       */
+/*   Updated: 2022/05/01 13:47:33 by mkaruvan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,20 +86,36 @@ void	init_data(int ac, char **av)
 void	init_check(int ac, char **av)
 {
 	if (ft_atop(av[1]) > 200 || ft_atop(av[2]) < 60 || ft_atop(av[3]) < 60
-		|| ft_atop(av[4]) < 60 || ft_atop(av[1]) < 2)
+		|| ft_atop(av[4]) < 60 || ft_atop(av[1]) < 1)
 		exit(1);
+	else if (ft_atop(av[1]) == 1)
+		printf("%d %d died \n", ft_atop(av[2]), 1);
 	else
 		init_data(ac, av);
 }
 
 int	main(int ac, char **av)
 {
+	int	i;
+	int	j;
+
+	i = 0;
+	j = -1;
 	if (ac > 6 || ac < 5)
 	{
 		printf("Error\n");
 		printf("Please enter correct format\n");
 	}
 	else
+	{
+		while (++i < ac)
+		{
+			j = -1;
+			while (av[i][++j])
+				if (!ft_isdigit(av[i][j]))
+					return (0);
+		}
 		init_check(ac, av);
+	}
 	return (0);
 }
