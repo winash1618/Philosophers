@@ -6,7 +6,7 @@
 /*   By: mkaruvan <mkaruvan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 14:24:24 by mkaruvan          #+#    #+#             */
-/*   Updated: 2022/05/01 13:55:49 by mkaruvan         ###   ########.fr       */
+/*   Updated: 2022/05/01 14:01:33 by mkaruvan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,12 @@ void	ft_error(t_phi *phi, int flag)
 	t_data	*data;
 
 	data = phi->s;
+	pthread_mutex_lock(&data->task[1]);
 	if (flag == 1)
 		data->death = 1;
 	else if (flag == 2)
 		data->death = 1;
+	pthread_mutex_unlock(&data->task[1]);
 }
 
 int	death_checker(t_data *data, size_t *d)
@@ -39,7 +41,7 @@ int	death_checker(t_data *data, size_t *d)
 
 void	philoop(t_phi *phi1, t_data *data, size_t *d)
 {
-	while (1 && !data->death)
+	while (1)
 	{
 		d[0] = phi1->id;
 		d[1] = (phi1->id + 1) % (data->pno);
@@ -56,8 +58,7 @@ void	philoop(t_phi *phi1, t_data *data, size_t *d)
 		unlock_stick(data, d[0], d[1], d[4]);
 		d[2] = time_event(phi1, data->tts, d[3], d[4]);
 		pthread_mutex_lock(&data->task[0]);
-		if (!data->death)
-			printer(data, get_time() - d[4], phi1->id, 3);
+		printer(data, get_time() - d[4], phi1->id, 3);
 		pthread_mutex_unlock(&data->task[0]);
 	}
 }

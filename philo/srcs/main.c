@@ -6,7 +6,7 @@
 /*   By: mkaruvan <mkaruvan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 13:35:12 by mkaruvan          #+#    #+#             */
-/*   Updated: 2022/05/01 13:47:33 by mkaruvan         ###   ########.fr       */
+/*   Updated: 2022/05/05 07:10:02 by mkaruvan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,8 @@ void	init_check(int ac, char **av)
 		exit(1);
 	else if (ft_atop(av[1]) == 1)
 		printf("%d %d died \n", ft_atop(av[2]), 1);
+	else if (ft_atop(av[ac-1]) < 1 && ac == 6)
+		exit (1);
 	else
 		init_data(ac, av);
 }
