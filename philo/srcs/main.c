@@ -6,7 +6,7 @@
 /*   By: mkaruvan <mkaruvan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/30 13:35:12 by mkaruvan          #+#    #+#             */
-/*   Updated: 2022/05/05 07:10:02 by mkaruvan         ###   ########.fr       */
+/*   Updated: 2022/06/01 09:28:55 by mkaruvan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,17 @@ void	threading(t_phi *phi, t_data *data)
 	while (++i < data->pno)
 	{
 		pthread_create (&phi[i].phi_t, NULL, philosopher, (void *)&phi[i]);
-		usleep(300);
+		usleep(500);
 	}
 	i = -1;
 	while (++i < data->pno)
 		pthread_join (phi[i].phi_t, NULL);
-	printf("I am here \n");
+	i = -1;
+	while (++i < 5)
+		pthread_mutex_destroy(&data->task[i]);
+	i = -1;
+	while (++i < data->pno)
+		pthread_mutex_destroy(&data->fork[i]);
 	free (data->fork);
 	free (data->task);
 	free (data);
@@ -73,8 +78,8 @@ void	init_data(int ac, char **av)
 	else
 		t = 0;
 	i = -1;
-	data->task = malloc(sizeof(pthread_mutex_t) * data->pno);
-	while (++i < data->pno)
+	data->task = malloc(sizeof(pthread_mutex_t) * 5);
+	while (++i < 5)
 		pthread_mutex_init(&data->task[i], NULL);
 	data->fork = malloc(sizeof(pthread_mutex_t) * data->pno);
 	i = -1;
@@ -90,7 +95,7 @@ void	init_check(int ac, char **av)
 		exit(1);
 	else if (ft_atop(av[1]) == 1)
 		printf("%d %d died \n", ft_atop(av[2]), 1);
-	else if (ft_atop(av[ac-1]) < 1 && ac == 6)
+	else if (ft_atop(av[ac - 1]) < 1 && ac == 6)
 		exit (1);
 	else
 		init_data(ac, av);
@@ -114,7 +119,7 @@ int	main(int ac, char **av)
 		{
 			j = -1;
 			while (av[i][++j])
-				if (!ft_isdigit(av[i][j]))
+				if (!ft_isdigit(av[i][j]) && av[i][0] != '+')
 					return (0);
 		}
 		init_check(ac, av);

@@ -6,7 +6,7 @@
 /*   By: mkaruvan <mkaruvan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 14:26:17 by mkaruvan          #+#    #+#             */
-/*   Updated: 2022/05/01 14:07:28 by mkaruvan         ###   ########.fr       */
+/*   Updated: 2022/06/01 09:01:15 by mkaruvan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,5 +94,8 @@ int	ft_atop(const char *str)
 		if (sum > 2147483647)
 			exit (1);
 	}
+	while (*str)
+		if (*str++ != 32)
+			exit (1);
 	return (sum * count);
 }
