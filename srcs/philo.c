@@ -6,7 +6,7 @@
 /*   By: mkaruvan <mkaruvan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/28 14:24:24 by mkaruvan          #+#    #+#             */
-/*   Updated: 2022/05/01 09:34:02 by mkaruvan         ###   ########.fr       */
+/*   Updated: 2022/05/01 14:01:33 by mkaruvan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,50 +15,28 @@
 void	ft_error(t_phi *phi, int flag)
 {
 	t_data	*data;
-	// int i;
 
-	// i = -1;
 	data = phi->s;
+	pthread_mutex_lock(&data->task[1]);
 	if (flag == 1)
-	{
-		// printf("Meals Finished \n");
 		data->death = 1;
-		// i = -1;
-		// while (++i < data->pno)
-		// {
-		// 	pthread_mutex_unlock(&data->fork[i]);
-		// 	pthread_join (phi[i].phi_t, NULL);
-		// 	pthread_mutex_unlock(&data->task[i]);
-		// }
-		// i = -1;
-		// while (++i < data->pno)
-		// {
-		// 	pthread_detach (phi[i + 8].phi_t);
-		// 	pthread_mutex_destroy(&data->fork[i]);
-		// 	pthread_mutex_destroy(&data->task[i]);
-		// }
-		// free (data->task);
-		// free (data->fork);
-		// i = -1;
-		// while (++i < data->pno)
-		// {
-		// 	free ((pthread_t *)phi[i].phi_t);
-		// }
-		// free (phi);
-		// exit (1);
-		// free (data->fork);
-		// free (data->task);
-		// free (data);
-		// free (phi);
-		// exit(1);
-	}
 	else if (flag == 2)
-	{
-		// printf("Simulation Ends \n");
 		data->death = 1;
-		// free (phi);
-		// exit (1);
+	pthread_mutex_unlock(&data->task[1]);
+}
+
+int	death_checker(t_data *data, size_t *d)
+{
+	pthread_mutex_lock(&data->task[1]);
+	if (data->death)
+	{
+		pthread_mutex_unlock(&data->fork[d[0]]);
+		pthread_mutex_unlock(&data->fork[d[1]]);
+		pthread_mutex_unlock(&data->task[1]);
+		return (1);
 	}
+	pthread_mutex_unlock(&data->task[1]);
+	return (0);
 }
 
 void	philoop(t_phi *phi1, t_data *data, size_t *d)
@@ -72,29 +50,15 @@ void	philoop(t_phi *phi1, t_data *data, size_t *d)
 		if (data->flag)
 			check_meal(phi1);
 		pthread_mutex_unlock(&data->task[0]);
-		// if (data->death)
-		// {
-		// 	pthread_join (phi1[phi1->id].phi_t, NULL);	
-		// 	if(!pthread_detach (phi1[phi1->id].phi_t))
-		// 		printf("Error in detach\n");
-		// }
 		check_death(phi1, get_time(), d[3], d[4]);
 		d[2] = time_event(phi1, data->tte, d[3], d[4]);
 		d[3] = get_time();
+		if (death_checker(data, d))
+			break ;
 		unlock_stick(data, d[0], d[1], d[4]);
-		pthread_mutex_lock(&data->task[1]);
-		if (data->death)
-		{
-			pthread_mutex_unlock(&data->task[1]);
-			break;
-			// pthread_join (phi1[phi1->id].phi_t, NULL);	
-			// if(!pthread_detach (phi1[phi1->id].phi_t))
-			// 	printf("Error in detach\n");
-		}
-		pthread_mutex_unlock(&data->task[1]);
 		d[2] = time_event(phi1, data->tts, d[3], d[4]);
 		pthread_mutex_lock(&data->task[0]);
-		ft_printf("%d %d is thinking \n", (int)get_time() - d[4], phi1->id);
+		printer(data, get_time() - d[4], phi1->id, 3);
 		pthread_mutex_unlock(&data->task[0]);
 	}
 }
@@ -110,26 +74,5 @@ void	*philosopher(void *phi)
 	phi1 = (t_phi *)phi;
 	data = phi1->s;
 	philoop(phi1, data, d);
-	printf("Philosopher %d is done eating.\n", phi1->id);
-	// int i;
-	// i = -1;
-	// while (++i < data->pno)
-	// 	pthread_join (phi1[i].phi_t, NULL);
-	// i = -1;
-	// while (++i < data->pno)
-	// {
-	// 	if(pthread_detach (phi1[i].phi_t))
-	// 		printf("Error in detach\n");
-	// }
-	// i = -1;
-	// while (++i < data->pno)
-	// {
-	// 	free(phi1[i].phi_t);
-	// }
-	// free (data->fork);
-	// free (data->task);
-	// free (data);
-	// free (phi);
-	// exit(1);
 	return (NULL);
 }

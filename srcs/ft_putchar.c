@@ -6,7 +6,7 @@
 /*   By: mkaruvan <mkaruvan@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/03 07:41:48 by mkaruvan          #+#    #+#             */
-/*   Updated: 2022/04/30 15:03:03 by mkaruvan         ###   ########.fr       */
+/*   Updated: 2022/05/01 13:39:24 by mkaruvan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,4 +16,11 @@ int	ft_putchar(int c)
 {
 	write (1, &c, 1);
 	return (1);
+}
+
+int	ft_isdigit(int c)
+{
+	if (c >= 48 && c <= 57)
+		return (1);
+	return (0);
 }
