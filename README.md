@@ -33,6 +33,7 @@
   - https://valgrind.org/docs/manual/hg-manual.html
   - https://www.gnu.org/software/make/manual/make.html Makefile tutorial by Gnu
   - https://stackoverflow.com/questions/5134891/how-do-i-use-valgrind-to-find-memory-leaks
+  - http://web.eecs.utk.edu/~mbeck/classes/cs560/560/notes/Dphil/lecture.html // implemented idea of putting a philosopher in a queue.
  
 ## Philosophers learning process
   - [Getting started](docs/intro_to_functions.MD)
