@@ -35,6 +35,66 @@
   - https://stackoverflow.com/questions/5134891/how-do-i-use-valgrind-to-find-memory-leaks
   - http://web.eecs.utk.edu/~mbeck/classes/cs560/560/notes/Dphil/lecture.html // implemented idea of putting a philosopher in a queue.
  
+## The problem with order violation is solved.
+- for answer details please refer this link https://stackoverflow.com/questions/62001623/why-does-helgrind-show-lock-order-violated-error-message
+- For five philos i put up this solution that was showing no order violation since i handled the order violation that was happening in the left fork zero.
+- Because when philo 0 come it takes zeroth and first fork when 4th philo comes we take fourth and zeroth in the same order as it is written when we give them only one option as given below.
+```c
+pthread_mutex_lock(&data->fork[left_fork]);
+pthread_mutex_lock(&data->fork[right_fork]);
+```
+- Inorder to prevent that i manually specified what to do when zero comes as shown below.
+```c
+void	lock_stick(t_data *data, int left_fork, int right_fork, size_t start)
+{
+	if (left_fork == 1)
+	{
+		pthread_mutex_lock(&data->fork[left_fork]);
+		pthread_mutex_lock(&data->fork[right_fork]);
+	}
+	if (left_fork == 2)
+	{
+		
+		pthread_mutex_lock(&data->fork[left_fork]);
+		pthread_mutex_lock(&data->fork[right_fork]);
+		
+	}
+	if (left_fork == 3)
+	{
+		pthread_mutex_lock(&data->fork[left_fork]);
+		pthread_mutex_lock(&data->fork[right_fork]);
+	}
+	if (left_fork == 4)
+	{
+		pthread_mutex_lock(&data->fork[right_fork]);
+		pthread_mutex_lock(&data->fork[left_fork]);
+	}
+	if (left_fork == 0)
+	{
+		pthread_mutex_lock(&data->fork[left_fork]);
+		pthread_mutex_lock(&data->fork[right_fork]);
+		
+	}
+	pthread_mutex_lock(&data->task[0]);
+	printer(data, get_time() - start, left_fork, 2);
+	pthread_mutex_unlock(&data->task[0]);
+}
+```
+- this can also be achieved by using simple if condition as given below.
+```c
+if (left_fork % 2 != 0)
+	{
+		pthread_mutex_lock(&data->fork[left_fork]);
+		pthread_mutex_lock(&data->fork[right_fork]);
+	}
+	else
+	{
+		pthread_mutex_lock(&data->fork[right_fork]);
+		pthread_mutex_lock(&data->fork[left_fork]);
+	}
+
+```
+
 ## Philosophers learning process
   - [Getting started](docs/intro_to_functions.MD)
   - [POSIX Threads Programming](docs/threads.MD)
