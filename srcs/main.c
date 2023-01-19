@@ -35,7 +35,7 @@ void	threading(t_phi *phi, t_data *data)
 	free (data->task);
 	free (data);
 	free (phi);
-	exit (1);
+	return ;
 }
 
 void	init_philo(t_phi *phi, t_data *data, int t)
@@ -91,12 +91,12 @@ void	init_data(int ac, char **av)
 void	init_check(int ac, char **av)
 {
 	if (ft_atop(av[1]) > 200 || ft_atop(av[2]) < 60 || ft_atop(av[3]) < 60
-		|| ft_atop(av[4]) < 60 || ft_atop(av[1]) < 1)
-		exit(1);
+		|| ft_atop(av[4]) < 60 || ft_atop(av[1]) < 1 )
+		return ;
 	else if (ft_atop(av[1]) == 1)
 		printf("%d %d died \n", ft_atop(av[2]), 1);
 	else if (ft_atop(av[ac - 1]) < 1 && ac == 6)
-		exit (1);
+		return ;
 	else
 		init_data(ac, av);
 }

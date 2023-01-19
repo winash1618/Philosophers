@@ -92,10 +92,10 @@ int	ft_atop(const char *str)
 		sum = sum * 10 + (*str - '0');
 		str++;
 		if (sum > 2147483647)
-			exit (1);
+			return (-1);
 	}
 	while (*str)
 		if (*str++ != 32)
-			exit (1);
+			return (-1);
 	return (sum * count);
 }
